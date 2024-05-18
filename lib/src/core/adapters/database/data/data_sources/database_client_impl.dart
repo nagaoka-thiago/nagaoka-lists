@@ -8,6 +8,7 @@ class DatabaseClientImpl implements DatabaseClient {
 
   Future<Resource<List<Map<String, dynamic>>, ErrorException>>
       readLists() async {
+    db.collection('lists');
     return Resource.success();
   }
 
