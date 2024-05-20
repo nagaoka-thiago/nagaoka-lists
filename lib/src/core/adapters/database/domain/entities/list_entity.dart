@@ -2,10 +2,10 @@ import 'package:nagaoka_lists/src/core/adapters/database/domain/entities/item_en
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities_keys/list_keys.dart';
 
 class ListEntity {
-  final String uid;
+  final String title;
   final List<ItemEntity> items;
 
-  ListEntity({required this.uid, required this.items});
+  ListEntity({required this.title, required this.items});
 
   static ListEntity fromJson(Map<String, dynamic> json) {
     final itemsListJsons = json[ListKeys.items] as List;
@@ -13,7 +13,7 @@ class ListEntity {
         .map((itemJson) => ItemEntity.fromJson(itemJson))
         .toList();
 
-    return ListEntity(uid: json[ListKeys.uid], items: itemsListEntities);
+    return ListEntity(title: json[ListKeys.title], items: itemsListEntities);
   }
 
   static Map<String, dynamic> toJson(ListEntity entity) {
@@ -22,7 +22,7 @@ class ListEntity {
         .map((itemEntity) => ItemEntity.toJson(itemEntity))
         .toList();
     return {
-      ListKeys.uid: entity.uid,
+      ListKeys.title: entity.title,
       ListKeys.items: itemsListJsons,
     };
   }

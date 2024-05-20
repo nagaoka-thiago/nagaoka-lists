@@ -1,20 +1,20 @@
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities_keys/item_keys.dart';
 
 class ItemEntity {
-  final String uid;
+  final String title;
   final String description;
   final DateTime createdAt;
   final DateTime changedAt;
 
   const ItemEntity(
-      {required this.uid,
+      {required this.title,
       required this.description,
       required this.createdAt,
       required this.changedAt});
 
   static ItemEntity fromJson(Map<String, dynamic> json) {
     return ItemEntity(
-      uid: json[ItemKeys.uid],
+      title: json[ItemKeys.title],
       description: json[ItemKeys.description],
       createdAt: json[ItemKeys.createdAt],
       changedAt: json[ItemKeys.changedAt],
@@ -26,7 +26,7 @@ class ItemEntity {
       ItemKeys.changedAt: entity.changedAt,
       ItemKeys.createdAt: entity.createdAt,
       ItemKeys.description: entity.description,
-      ItemKeys.uid: entity.uid,
+      ItemKeys.title: entity.title,
     };
   }
 }
