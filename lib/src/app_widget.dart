@@ -9,7 +9,8 @@ class AppWidget extends StatelessWidget {
     return MaterialApp.router(
       title: 'Nagaoka\'s Lists',
       theme: ThemeData(primarySwatch: Colors.blue),
-      routerConfig: Modular.routerConfig,
+      routerDelegate: Modular.routerDelegate,
+      routeInformationParser: Modular.routeInformationParser,
     );
   }
 }
