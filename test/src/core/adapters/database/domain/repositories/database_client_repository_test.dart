@@ -69,7 +69,7 @@ void main() async {
     }));
     test("When readLists fails, it returns an ErrorException", (() async {
       //Given
-      final dummyError = 'dummyError';
+      const dummyError = 'dummyError';
       datasourceStub.returnedReads =
           Resource.failed(error: ErrorException(message: dummyError));
       //When
@@ -82,7 +82,7 @@ void main() async {
     }));
     test("When readList success, it returns a map", (() async {
       //Given
-      final dummyString = 'Title 1';
+      const dummyString = 'Title 1';
       datasourceStub.returnedRead = Resource.success(data: {
         'title': 'Title 1',
         'items': [
@@ -110,8 +110,8 @@ void main() async {
     }));
     test("When readList fails, it returns an ErrorException", (() async {
       //Given
-      final dummyError = 'dummyError';
-      final dummyString = 'Title 1';
+      const dummyError = 'dummyError';
+      const dummyString = 'Title 1';
       datasourceStub.returnedRead =
           Resource.failed(error: ErrorException(message: dummyError));
       //When
@@ -149,7 +149,7 @@ void main() async {
     }));
     test("When addList fails, it returns an ErrorException", (() async {
       //Given
-      final dummyError = 'dummyError';
+      const dummyError = 'dummyError';
       datasourceStub.returnedUpdateDeleteAdd =
           Resource.failed(error: ErrorException(message: dummyError));
       //When
@@ -176,7 +176,7 @@ void main() async {
     }));
     test("When updateList success, it returns 1", (() async {
       //Given
-      final dummyString = 'Title 1';
+      const dummyString = 'Title 1';
       datasourceStub.returnedUpdateDeleteAdd = Resource.success(data: 1);
       //When
       final result = await sut.updateList(
@@ -203,8 +203,8 @@ void main() async {
     }));
     test("When updateList fails, it returns an ErrorException", (() async {
       //Given
-      final dummyError = 'dummyError';
-      final dummyString = 'Title 1';
+      const dummyError = 'dummyError';
+      const dummyString = 'Title 1';
       datasourceStub.returnedUpdateDeleteAdd =
           Resource.failed(error: ErrorException(message: dummyError));
       //When
@@ -232,7 +232,7 @@ void main() async {
     }));
     test("When deleteList success, it returns 1", (() async {
       //Given
-      final dummyString = 'Title 1';
+      const dummyString = 'Title 1';
       datasourceStub.returnedUpdateDeleteAdd = Resource.success(data: 1);
       //When
       final result = await sut.deleteList(
@@ -246,8 +246,8 @@ void main() async {
     }));
     test("When deleteList fails, it returns an ErrorException", (() async {
       //Given
-      final dummyError = 'dummyError';
-      final dummyString = 'Title 1';
+      const dummyError = 'dummyError';
+      const dummyString = 'Title 1';
       datasourceStub.returnedUpdateDeleteAdd =
           Resource.failed(error: ErrorException(message: dummyError));
       //When

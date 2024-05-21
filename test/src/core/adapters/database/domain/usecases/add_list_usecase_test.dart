@@ -50,7 +50,7 @@ void main() async {
     }));
     test("When addList fails, it returns an ErrorException", (() async {
       //Given
-      final dummyError = 'dummyError';
+      const dummyError = 'dummyError';
       repositoryStub.returnedUpdateDeleteAdd =
           Resource.failed(error: ErrorException(message: dummyError));
       //When

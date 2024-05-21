@@ -63,7 +63,7 @@ void main() async {
     }));
     test("When readLists fails, it returns an ErrorException", (() async {
       //Given
-      final dummyError = 'dummyError';
+      const dummyError = 'dummyError';
       repositoryStub.returnedReads =
           Resource.failed(error: ErrorException(message: dummyError));
       //When

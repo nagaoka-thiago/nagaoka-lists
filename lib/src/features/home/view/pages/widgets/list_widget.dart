@@ -15,7 +15,7 @@ class ListWidget extends StatelessWidget {
               border: Border.all(
             color: Colors.blue,
           )),
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -24,7 +24,7 @@ class ListWidget extends StatelessWidget {
                   Center(
                     child: Text(
                       list.title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                       ),
                     ),
@@ -32,14 +32,14 @@ class ListWidget extends StatelessWidget {
                   Row(
                     children: list.items
                         .map((item) => Padding(
-                              padding: EdgeInsets.only(right: 8),
-                              child: Container(child: Text(item.title)),
+                              padding: const EdgeInsets.only(right: 8),
+                              child: Text(item.title),
                             ))
                         .toList(),
                   )
                 ],
               ),
-              Icon(Icons.keyboard_arrow_right)
+              const Icon(Icons.keyboard_arrow_right)
             ],
           )),
     );

@@ -80,7 +80,7 @@ void main() async {
         ],
       });
       //When
-      final dummyString = 'Lista 1';
+      const dummyString = 'Lista 1';
       final result = await sut.readList(title: dummyString);
       //Then
       expect(result.error, isNull);
@@ -185,7 +185,7 @@ void main() async {
         ],
       });
       //When
-      final dummyString = 'Lista 1';
+      const dummyString = 'Lista 1';
       final result = await sut.updateList(title: dummyString, list: {
         'title': 'Lista 1',
         'items': [
@@ -250,7 +250,7 @@ void main() async {
         ],
       });
       //When
-      final dummyString = 'Lista 1';
+      const dummyString = 'Lista 1';
       final result = await sut.deleteList(title: dummyString);
       final testing = await sut.readList(title: dummyString);
       //Then

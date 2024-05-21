@@ -40,7 +40,7 @@ void main() async {
         ]),
       );
       //When
-      final dummyString = 'Title 1';
+      const dummyString = 'Title 1';
       final result = await sut.call(title: dummyString);
       //Then
       expect(result.error, isNull);
@@ -50,8 +50,8 @@ void main() async {
     }));
     test("When readList fails, it returns an ErrorException", (() async {
       //Given
-      final dummyString = 'Title 1';
-      final dummyError = 'dummyError';
+      const dummyString = 'Title 1';
+      const dummyError = 'dummyError';
       repositoryStub.returnedRead =
           Resource.failed(error: ErrorException(message: dummyError));
       //When

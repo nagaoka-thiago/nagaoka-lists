@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities/list_entity.dart';
-import 'package:nagaoka_lists/src/features/home/view/controller/home_controller.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:nagaoka_lists/src/features/home/view/pages/widgets/list_widget.dart';
+import 'package:nagaoka_lists/src/features/form/view/controller/form_controller.dart';
+import 'package:nagaoka_lists/src/features/form/view/pages/widgets/item_form_widget.dart';
 
 class FormPage extends StatefulWidget {
   final ListEntity? list;
@@ -14,6 +14,7 @@ class FormPage extends StatefulWidget {
 }
 
 class _FormPageState extends State<FormPage> {
+  final _controller = Modular.get<FormController>();
   @override
   void initState() {
     super.initState();
@@ -30,17 +31,69 @@ class _FormPageState extends State<FormPage> {
           onPressed: () {
             Modular.to.pop();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
         ),
         backgroundColor: Colors.blue,
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
-          Text('Testing'),
+          Observer(
+            builder: (_) => TextFormField(
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Title',
+              ),
+              onChanged: _controller.setTitle,
+              initialValue: _controller.title,
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Observer(
+              builder: (_) => _controller.entity!.items.isNotEmpty
+                  ? Column(children: [
+                      ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: _controller.entity!.items.length,
+                          itemBuilder: (context, i) {
+                            final item = _controller.entity!.items[i];
+                            return ItemFormWidget(
+                              itemTitle: item.title,
+                              itemTitleOnChanged: (newVal) {},
+                              itemDescription: item.description,
+                              itemDescriptionOnChanged: (newVal) {},
+                            );
+                          }),
+                    ])
+                  : const Text('There are no items in this list.')),
+          const SizedBox(
+            height: 16,
+          ),
+          TextButton(
+            style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
+                side: WidgetStateProperty.all<BorderSide>(
+                    const BorderSide(color: Colors.black))),
+            child: const Text('Add items',
+                style: TextStyle(fontSize: 24, color: Colors.white)),
+            onPressed: () {},
+          )
         ],
+      ),
+      floatingActionButton: TextButton(
+        style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
+            side: WidgetStateProperty.all<BorderSide>(
+                const BorderSide(color: Colors.black))),
+        child: const Text(
+          'Add List',
+          style: TextStyle(fontSize: 24, color: Colors.white),
+        ),
+        onPressed: () {},
       ),
     );
   }

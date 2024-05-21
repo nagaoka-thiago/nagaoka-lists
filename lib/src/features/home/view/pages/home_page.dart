@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Observer(
@@ -52,11 +52,11 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: IconButton(
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.green)),
+              backgroundColor: WidgetStateProperty.all<Color>(Colors.green)),
           onPressed: () {
             Modular.to.pushNamed('/form/');
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.add,
             color: Colors.white,
           )),

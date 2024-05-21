@@ -29,7 +29,7 @@ mixin _$HomeController on HomeControllerBase, Store {
       AsyncAction('HomeControllerBase.initializeLists', context: context);
 
   @override
-  Future initializeLists() {
+  Future<void> initializeLists() {
     return _$initializeListsAsyncAction.run(() => super.initializeLists());
   }
 
