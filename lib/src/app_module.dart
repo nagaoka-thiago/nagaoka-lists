@@ -14,6 +14,7 @@ import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/delete
 import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/read_list_usecase.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/read_lists_usecase.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/update_list_usecase.dart';
+import 'package:nagaoka_lists/src/features/form/form_module.dart';
 import 'package:nagaoka_lists/src/features/home/home_module.dart';
 
 class AppModule extends Module {
@@ -34,5 +35,6 @@ class AppModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ModuleRoute('/', module: HomeModule()),
+        ModuleRoute('/form/', module: FormModule()),
       ];
 }
