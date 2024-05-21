@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities_keys/item_keys.dart';
 
 class ItemEntity {
@@ -16,15 +17,15 @@ class ItemEntity {
     return ItemEntity(
       title: json[ItemKeys.title],
       description: json[ItemKeys.description],
-      createdAt: json[ItemKeys.createdAt],
-      changedAt: json[ItemKeys.changedAt],
+      createdAt: DateFormat('dd/MM/yyyy').parse(json[ItemKeys.createdAt]),
+      changedAt: DateFormat('dd/MM/yyyy').parse(json[ItemKeys.changedAt]),
     );
   }
 
   static Map<String, dynamic> toJson(ItemEntity entity) {
     return {
-      ItemKeys.changedAt: entity.changedAt,
-      ItemKeys.createdAt: entity.createdAt,
+      ItemKeys.changedAt: DateFormat('dd/MM/yyyy').format(entity.changedAt),
+      ItemKeys.createdAt: DateFormat('dd/MM/yyyy').format(entity.createdAt),
       ItemKeys.description: entity.description,
       ItemKeys.title: entity.title,
     };
