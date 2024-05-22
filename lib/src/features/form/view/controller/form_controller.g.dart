@@ -25,47 +25,120 @@ mixin _$FormController on FormControllerBase, Store {
     });
   }
 
-  late final _$titleAtom =
-      Atom(name: 'FormControllerBase.title', context: context);
+  late final _$listTitleAtom =
+      Atom(name: 'FormControllerBase.listTitle', context: context);
 
   @override
-  String? get title {
-    _$titleAtom.reportRead();
-    return super.title;
+  String? get listTitle {
+    _$listTitleAtom.reportRead();
+    return super.listTitle;
   }
 
   @override
-  set title(String? value) {
-    _$titleAtom.reportWrite(value, super.title, () {
-      super.title = value;
+  set listTitle(String? value) {
+    _$listTitleAtom.reportWrite(value, super.listTitle, () {
+      super.listTitle = value;
     });
   }
 
-  late final _$oldTitleAtom =
-      Atom(name: 'FormControllerBase.oldTitle', context: context);
+  late final _$oldListTitleAtom =
+      Atom(name: 'FormControllerBase.oldListTitle', context: context);
 
   @override
-  String? get oldTitle {
-    _$oldTitleAtom.reportRead();
-    return super.oldTitle;
+  String? get oldListTitle {
+    _$oldListTitleAtom.reportRead();
+    return super.oldListTitle;
   }
 
   @override
-  set oldTitle(String? value) {
-    _$oldTitleAtom.reportWrite(value, super.oldTitle, () {
-      super.oldTitle = value;
+  set oldListTitle(String? value) {
+    _$oldListTitleAtom.reportWrite(value, super.oldListTitle, () {
+      super.oldListTitle = value;
     });
+  }
+
+  late final _$itemsAtom =
+      Atom(name: 'FormControllerBase.items', context: context);
+
+  @override
+  ObservableList<ItemEntity> get items {
+    _$itemsAtom.reportRead();
+    return super.items;
+  }
+
+  @override
+  set items(ObservableList<ItemEntity> value) {
+    _$itemsAtom.reportWrite(value, super.items, () {
+      super.items = value;
+    });
+  }
+
+  late final _$numItemsAddedAtom =
+      Atom(name: 'FormControllerBase.numItemsAdded', context: context);
+
+  @override
+  int get numItemsAdded {
+    _$numItemsAddedAtom.reportRead();
+    return super.numItemsAdded;
+  }
+
+  @override
+  set numItemsAdded(int value) {
+    _$numItemsAddedAtom.reportWrite(value, super.numItemsAdded, () {
+      super.numItemsAdded = value;
+    });
+  }
+
+  late final _$deleteItemAsyncAction =
+      AsyncAction('FormControllerBase.deleteItem', context: context);
+
+  @override
+  Future<void> deleteItem(int index) {
+    return _$deleteItemAsyncAction.run(() => super.deleteItem(index));
   }
 
   late final _$FormControllerBaseActionController =
       ActionController(name: 'FormControllerBase', context: context);
 
   @override
-  void setTitle(String newVal) {
+  void setListTitle(String newVal) {
     final _$actionInfo = _$FormControllerBaseActionController.startAction(
-        name: 'FormControllerBase.setTitle');
+        name: 'FormControllerBase.setListTitle');
     try {
-      return super.setTitle(newVal);
+      return super.setListTitle(newVal);
+    } finally {
+      _$FormControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setItemTitle(int i, String newVal) {
+    final _$actionInfo = _$FormControllerBaseActionController.startAction(
+        name: 'FormControllerBase.setItemTitle');
+    try {
+      return super.setItemTitle(i, newVal);
+    } finally {
+      _$FormControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setItemDescription(int i, String newVal) {
+    final _$actionInfo = _$FormControllerBaseActionController.startAction(
+        name: 'FormControllerBase.setItemDescription');
+    try {
+      return super.setItemDescription(i, newVal);
+    } finally {
+      _$FormControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void incrementItemsAdded() {
+    final _$actionInfo = _$FormControllerBaseActionController.startAction(
+        name: 'FormControllerBase.incrementItemsAdded');
+    try {
+      return super.incrementItemsAdded();
     } finally {
       _$FormControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -86,8 +159,10 @@ mixin _$FormController on FormControllerBase, Store {
   String toString() {
     return '''
 entity: ${entity},
-title: ${title},
-oldTitle: ${oldTitle}
+listTitle: ${listTitle},
+oldListTitle: ${oldListTitle},
+items: ${items},
+numItemsAdded: ${numItemsAdded}
     ''';
   }
 }

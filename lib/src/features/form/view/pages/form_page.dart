@@ -36,54 +36,76 @@ class _FormPageState extends State<FormPage> {
         ),
         backgroundColor: Colors.blue,
       ),
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 8,
-          ),
-          Observer(
-            builder: (_) => TextFormField(
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Title',
-              ),
-              onChanged: _controller.setTitle,
-              initialValue: _controller.title,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 8,
             ),
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          // Observer(
-          //     builder: (_) => _controller.entity!.items.isNotEmpty
-          //         ? Column(children: [
-          //             ListView.builder(
-          //                 shrinkWrap: true,
-          //                 itemCount: _controller.entity!.items.length,
-          //                 itemBuilder: (context, i) {
-          //                   final item = _controller.entity!.items[i];
-          //                   return ItemFormWidget(
-          //                     itemTitle: item.title,
-          //                     itemTitleOnChanged: (newVal) {},
-          //                     itemDescription: item.description,
-          //                     itemDescriptionOnChanged: (newVal) {},
-          //                   );
-          //                 }),
-          //           ])
-          //         : const Text('There are no items in this list.')),
-          const SizedBox(
-            height: 16,
-          ),
-          TextButton(
-            style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
-                side: WidgetStateProperty.all<BorderSide>(
-                    const BorderSide(color: Colors.black))),
-            child: const Text('Add items',
-                style: TextStyle(fontSize: 24, color: Colors.white)),
-            onPressed: () {},
-          )
-        ],
+            Observer(
+              builder: (_) => TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'List Title',
+                ),
+                onChanged: _controller.setListTitle,
+                initialValue: _controller.listTitle,
+              ),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Observer(
+              builder: (_) => _controller.numItemsAdded > 0
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width / 2,
+                          padding: const EdgeInsets.only(right: 16),
+                          child: Column(children: [
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: _controller.numItemsAdded,
+                                itemBuilder: (context, i) {
+                                  return ItemFormWidget(
+                                    key: Key(_controller.items[i].title),
+                                    itemTitle: _controller.items[i].title,
+                                    itemTitleOnChanged: (newVal) =>
+                                        _controller.setItemTitle(i, newVal),
+                                    itemDescription:
+                                        _controller.items[i].description,
+                                    itemDescriptionOnChanged: (newVal) =>
+                                        _controller.setItemDescription(
+                                            i, newVal),
+                                    itemDelete: () async {
+                                      await _controller.deleteItem(i);
+                                    },
+                                  );
+                                }),
+                          ]),
+                        ),
+                      ],
+                    )
+                  : const Text('There are no items registered in this list!'),
+            ),
+            const SizedBox(
+              height: 16,
+            ),
+            Observer(
+                builder: (_) => TextButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              WidgetStateProperty.all<Color>(Colors.green),
+                          side: WidgetStateProperty.all<BorderSide>(
+                              const BorderSide(color: Colors.black))),
+                      onPressed: _controller.incrementItemsAdded,
+                      child: const Text('Add items',
+                          style: TextStyle(fontSize: 24, color: Colors.white)),
+                    )),
+          ],
+        ),
       ),
       floatingActionButton: TextButton(
         style: ButtonStyle(

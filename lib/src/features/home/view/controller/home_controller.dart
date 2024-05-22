@@ -14,12 +14,19 @@ abstract class HomeControllerBase with Store {
   @observable
   ObservableList<ListEntity> lists = ObservableList();
 
+  @observable
+  ObservableList<bool> listExpanded = ObservableList();
+
   @action
   Future<void> initializeLists() async {
     final result = await _readListsUsecase.call();
 
     if (!result.hasError) {
       lists = result.data!.asObservable();
+      listExpanded = <bool>[].asObservable();
+      for (var _ in lists) {
+        listExpanded.add(false);
+      }
     }
   }
 
@@ -27,5 +34,10 @@ abstract class HomeControllerBase with Store {
   Future<void> deleteList(ListEntity? list) async {
     await _deleteListUsecase.call(title: list!.title);
     await initializeLists();
+  }
+
+  @action
+  Future<void> toggleList(int index) async {
+    listExpanded[index] = !listExpanded[index];
   }
 }

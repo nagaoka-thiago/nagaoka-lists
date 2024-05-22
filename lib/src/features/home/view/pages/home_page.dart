@@ -78,11 +78,17 @@ class _HomePageState extends State<HomePage> {
                         );
                       },
                       child: ListWidget(
+                        key: Key(list.title),
                         list: list,
-                        onPressed: () async {
+                        onListPressed: () async {
                           await Modular.to.pushNamed('/form/', arguments: list);
                           await _controller.initializeLists();
                         },
+                        onExpandPressed: () async {
+                          await _controller.toggleList(i);
+                          setState(() {});
+                        },
+                        expand: _controller.listExpanded[i],
                       ),
                     );
                   });

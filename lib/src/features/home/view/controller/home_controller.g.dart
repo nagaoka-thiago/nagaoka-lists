@@ -25,6 +25,22 @@ mixin _$HomeController on HomeControllerBase, Store {
     });
   }
 
+  late final _$listExpandedAtom =
+      Atom(name: 'HomeControllerBase.listExpanded', context: context);
+
+  @override
+  ObservableList<bool> get listExpanded {
+    _$listExpandedAtom.reportRead();
+    return super.listExpanded;
+  }
+
+  @override
+  set listExpanded(ObservableList<bool> value) {
+    _$listExpandedAtom.reportWrite(value, super.listExpanded, () {
+      super.listExpanded = value;
+    });
+  }
+
   late final _$initializeListsAsyncAction =
       AsyncAction('HomeControllerBase.initializeLists', context: context);
 
@@ -41,10 +57,19 @@ mixin _$HomeController on HomeControllerBase, Store {
     return _$deleteListAsyncAction.run(() => super.deleteList(list));
   }
 
+  late final _$toggleListAsyncAction =
+      AsyncAction('HomeControllerBase.toggleList', context: context);
+
+  @override
+  Future<void> toggleList(int index) {
+    return _$toggleListAsyncAction.run(() => super.toggleList(index));
+  }
+
   @override
   String toString() {
     return '''
-lists: ${lists}
+lists: ${lists},
+listExpanded: ${listExpanded}
     ''';
   }
 }

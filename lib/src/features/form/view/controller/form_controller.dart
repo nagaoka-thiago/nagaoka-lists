@@ -1,5 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
+import 'package:nagaoka_lists/src/core/adapters/database/domain/entities/item_entity.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities/list_entity.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/add_list_usecase.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/update_list_usecase.dart';
@@ -16,33 +17,84 @@ abstract class FormControllerBase with Store {
   ListEntity? entity;
 
   @observable
-  String? title;
+  String? listTitle;
 
   @observable
-  String? oldTitle;
+  String? oldListTitle;
+
+  @observable
+  ObservableList<ItemEntity> items = ObservableList();
+
+  @observable
+  int numItemsAdded = 0;
 
   @action
-  void setTitle(String newVal) => title = newVal;
+  void setListTitle(String newVal) => listTitle = newVal;
+
+  @action
+  void setItemTitle(int i, String newVal) {
+    items[i].title = newVal;
+    items[i].changedAt = DateTime.now();
+  }
+
+  @action
+  void setItemDescription(int i, String newVal) {
+    items[i].description = newVal;
+    items[i].changedAt = DateTime.now();
+  }
+
+  @action
+  void incrementItemsAdded() {
+    numItemsAdded++;
+    items.add(ItemEntity(
+        title: '',
+        description: '',
+        createdAt: DateTime.now(),
+        changedAt: DateTime.now()));
+  }
+
+  @action
+  Future<void> deleteItem(int index) async {
+    if (items.isNotEmpty) {
+      items.removeAt(index);
+      if (numItemsAdded > 0) {
+        numItemsAdded--;
+      }
+    }
+  }
 
   @action
   void initializeEntity(ListEntity? oldEntity) {
     if (oldEntity != null) {
       entity = oldEntity;
-      title = oldEntity.title;
-      oldTitle = title;
+      listTitle = oldEntity.title;
+      oldListTitle = listTitle;
+      items = oldEntity.items.asObservable();
+      numItemsAdded = items.length;
     } else {
       entity = null;
-      title = '';
+      listTitle = '';
+      items = <ItemEntity>[].asObservable();
+      numItemsAdded = 0;
     }
   }
 
   Future<void> addOrUpdateList() async {
     if (entity == null) {
-      entity = ListEntity(title: title!, items: []);
+      items = items
+          .map((item) {
+            item.createdAt = DateTime.now();
+            item.changedAt = DateTime.now();
+            return item;
+          })
+          .toList()
+          .asObservable();
+      entity = ListEntity(title: listTitle!, items: items);
       await _addListUsecase.call(list: entity!);
     } else {
-      entity!.title = title!;
-      await _updateListUsecase.call(title: oldTitle!, list: entity!);
+      entity!.title = listTitle!;
+      entity!.items = items;
+      await _updateListUsecase.call(title: oldListTitle!, list: entity!);
     }
   }
 }
