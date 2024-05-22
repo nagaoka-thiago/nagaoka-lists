@@ -2,7 +2,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities/item_entity.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities/list_entity.dart';
+import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/add_item_usecase.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/add_list_usecase.dart';
+import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/delete_item_usecase.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/use_cases/update_list_usecase.dart';
 
 part 'form_controller.g.dart';
@@ -11,6 +13,8 @@ class FormController = FormControllerBase with _$FormController;
 
 abstract class FormControllerBase with Store {
   final _addListUsecase = Modular.get<AddListUsecase>();
+  final _addItemUsecase = Modular.get<AddItemUsecase>();
+  final _deleteItemUsecase = Modular.get<DeleteItemUsecase>();
   final _updateListUsecase = Modular.get<UpdateListUsecase>();
 
   @observable
@@ -46,20 +50,14 @@ abstract class FormControllerBase with Store {
   @action
   void incrementItemsAdded() {
     numItemsAdded++;
-    items.add(ItemEntity(
-        title: '',
-        description: '',
-        createdAt: DateTime.now(),
-        changedAt: DateTime.now()));
+    _addItemUsecase.call(items: items);
   }
 
   @action
   Future<void> deleteItem(int index) async {
-    if (items.isNotEmpty) {
-      items.removeAt(index);
-      if (numItemsAdded > 0) {
-        numItemsAdded--;
-      }
+    _deleteItemUsecase.call(items: items, index: index);
+    if (numItemsAdded > 0) {
+      numItemsAdded--;
     }
   }
 
