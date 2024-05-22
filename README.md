@@ -1,16 +1,20 @@
-# nagaoka_lists
+# Nagaoka's lists
 
-A new Flutter project.
+It is an app that manages lists of items, which contains a title, description of this item, date and time created and changed.
 
-## Getting Started
+## Inicialization
 
-This project is a starting point for a Flutter application.
+This project can be downloaded from: 
+```
+git clone https://github.com/nagaoka-thiago/nagaoka-lists.git
+```
 
-A few resources to get you started if this is your first Flutter project:
+Also, you will need to run it on a Pixel XL with API 33 emulator, which is setup on Android Studio.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Technologies
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project uses the following technologies for state management, injection dependencies, router management and database:
+
+- Mobx
+- Flutter Modular
+- Firebase Firestore
