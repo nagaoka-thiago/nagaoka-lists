@@ -41,6 +41,18 @@ class _HomePageState extends State<HomePage> {
                     final list = _controller.lists[i];
                     return Dismissible(
                       key: Key(list.title),
+                      background: Container(
+                        color: Colors.red,
+                        padding: const EdgeInsets.only(left: 20.0),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.delete,
+                            )
+                          ],
+                        ),
+                      ),
                       confirmDismiss: (direction) async {
                         return await showDialog(
                           context: context,
