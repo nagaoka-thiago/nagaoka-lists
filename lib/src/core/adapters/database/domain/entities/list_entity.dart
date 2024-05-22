@@ -2,8 +2,8 @@ import 'package:nagaoka_lists/src/core/adapters/database/domain/entities/item_en
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities_keys/list_keys.dart';
 
 class ListEntity {
-  final String title;
-  final List<ItemEntity> items;
+  String title;
+  List<ItemEntity> items;
 
   ListEntity({required this.title, required this.items});
 

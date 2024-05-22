@@ -33,6 +33,14 @@ mixin _$HomeController on HomeControllerBase, Store {
     return _$initializeListsAsyncAction.run(() => super.initializeLists());
   }
 
+  late final _$deleteListAsyncAction =
+      AsyncAction('HomeControllerBase.deleteList', context: context);
+
+  @override
+  Future<void> deleteList(ListEntity? list) {
+    return _$deleteListAsyncAction.run(() => super.deleteList(list));
+  }
+
   @override
   String toString() {
     return '''

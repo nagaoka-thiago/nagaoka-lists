@@ -41,6 +41,22 @@ mixin _$FormController on FormControllerBase, Store {
     });
   }
 
+  late final _$oldTitleAtom =
+      Atom(name: 'FormControllerBase.oldTitle', context: context);
+
+  @override
+  String? get oldTitle {
+    _$oldTitleAtom.reportRead();
+    return super.oldTitle;
+  }
+
+  @override
+  set oldTitle(String? value) {
+    _$oldTitleAtom.reportWrite(value, super.oldTitle, () {
+      super.oldTitle = value;
+    });
+  }
+
   late final _$FormControllerBaseActionController =
       ActionController(name: 'FormControllerBase', context: context);
 
@@ -70,7 +86,8 @@ mixin _$FormController on FormControllerBase, Store {
   String toString() {
     return '''
 entity: ${entity},
-title: ${title}
+title: ${title},
+oldTitle: ${oldTitle}
     ''';
   }
 }

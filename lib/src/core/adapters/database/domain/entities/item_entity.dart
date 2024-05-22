@@ -2,12 +2,12 @@ import 'package:intl/intl.dart';
 import 'package:nagaoka_lists/src/core/adapters/database/domain/entities_keys/item_keys.dart';
 
 class ItemEntity {
-  final String title;
-  final String description;
-  final DateTime createdAt;
-  final DateTime changedAt;
+  String title;
+  String description;
+  DateTime createdAt;
+  DateTime changedAt;
 
-  const ItemEntity(
+  ItemEntity(
       {required this.title,
       required this.description,
       required this.createdAt,

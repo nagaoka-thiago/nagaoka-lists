@@ -39,11 +39,39 @@ class _HomePageState extends State<HomePage> {
                   itemCount: _controller.lists.length,
                   itemBuilder: (context, i) {
                     final list = _controller.lists[i];
-                    return ListWidget(
-                      list: list,
-                      onPressed: () {
-                        Modular.to.pushNamed('/form/', arguments: list);
+                    return Dismissible(
+                      key: Key(list.title),
+                      confirmDismiss: (direction) async {
+                        return await showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Are you sure?"),
+                              content: Text(
+                                  "Are you sure you wish to delete ${list.title}?"),
+                              actions: <Widget>[
+                                TextButton(
+                                    onPressed: () {
+                                      _controller.deleteList(list);
+                                      Modular.to.pop(true);
+                                    },
+                                    child: const Text("Delete")),
+                                TextButton(
+                                  onPressed: () => Modular.to.pop(false),
+                                  child: const Text("Cancel"),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
+                      child: ListWidget(
+                        list: list,
+                        onPressed: () async {
+                          await Modular.to.pushNamed('/form/', arguments: list);
+                          await _controller.initializeLists();
+                        },
+                      ),
                     );
                   });
             },
@@ -53,8 +81,9 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: IconButton(
           style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(Colors.green)),
-          onPressed: () {
-            Modular.to.pushNamed('/form/');
+          onPressed: () async {
+            await Modular.to.pushNamed('/form/');
+            await _controller.initializeLists();
           },
           icon: const Icon(
             Icons.add,

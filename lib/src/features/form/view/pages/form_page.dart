@@ -17,6 +17,7 @@ class _FormPageState extends State<FormPage> {
   final _controller = Modular.get<FormController>();
   @override
   void initState() {
+    _controller.initializeEntity(widget.list);
     super.initState();
   }
 
@@ -53,23 +54,23 @@ class _FormPageState extends State<FormPage> {
           const SizedBox(
             height: 16,
           ),
-          Observer(
-              builder: (_) => _controller.entity!.items.isNotEmpty
-                  ? Column(children: [
-                      ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _controller.entity!.items.length,
-                          itemBuilder: (context, i) {
-                            final item = _controller.entity!.items[i];
-                            return ItemFormWidget(
-                              itemTitle: item.title,
-                              itemTitleOnChanged: (newVal) {},
-                              itemDescription: item.description,
-                              itemDescriptionOnChanged: (newVal) {},
-                            );
-                          }),
-                    ])
-                  : const Text('There are no items in this list.')),
+          // Observer(
+          //     builder: (_) => _controller.entity!.items.isNotEmpty
+          //         ? Column(children: [
+          //             ListView.builder(
+          //                 shrinkWrap: true,
+          //                 itemCount: _controller.entity!.items.length,
+          //                 itemBuilder: (context, i) {
+          //                   final item = _controller.entity!.items[i];
+          //                   return ItemFormWidget(
+          //                     itemTitle: item.title,
+          //                     itemTitleOnChanged: (newVal) {},
+          //                     itemDescription: item.description,
+          //                     itemDescriptionOnChanged: (newVal) {},
+          //                   );
+          //                 }),
+          //           ])
+          //         : const Text('There are no items in this list.')),
           const SizedBox(
             height: 16,
           ),
@@ -93,7 +94,10 @@ class _FormPageState extends State<FormPage> {
           'Add List',
           style: TextStyle(fontSize: 24, color: Colors.white),
         ),
-        onPressed: () {},
+        onPressed: () async {
+          await _controller.addOrUpdateList();
+          Modular.to.pop();
+        },
       ),
     );
   }
