@@ -117,8 +117,16 @@ class _FormPageState extends State<FormPage> {
           style: TextStyle(fontSize: 24, color: Colors.white),
         ),
         onPressed: () async {
-          await _controller.addOrUpdateList();
-          Modular.to.pop();
+          final result = await _controller.addOrUpdateList();
+          if (result == 'Success') {
+            Modular.to.pop();
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(result),
+              ),
+            );
+          }
         },
       ),
     );

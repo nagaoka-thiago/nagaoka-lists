@@ -79,7 +79,7 @@ abstract class FormControllerBase with Store {
     }
   }
 
-  Future<void> addOrUpdateList() async {
+  Future<String> addOrUpdateList() async {
     if (entity == null) {
       items = items
           .map((item) {
@@ -89,12 +89,23 @@ abstract class FormControllerBase with Store {
           })
           .toList()
           .asObservable();
-      entity = ListEntity(title: listTitle!, items: items);
-      await _addListUsecase.call(list: entity!);
+      final newEntity = ListEntity(title: listTitle!, items: items);
+      final result = await _addListUsecase.call(list: newEntity);
+
+      if (result.hasError) {
+        return result.error!.message;
+      }
     } else {
       entity!.title = listTitle!;
       entity!.items = items;
-      await _updateListUsecase.call(title: oldListTitle!, list: entity!);
+      final result =
+          await _updateListUsecase.call(title: oldListTitle!, list: entity!);
+
+      if (result.hasError) {
+        return result.error!.message;
+      }
     }
+
+    return 'Success';
   }
 }

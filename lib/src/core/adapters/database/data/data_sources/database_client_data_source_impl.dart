@@ -45,8 +45,15 @@ class DatabaseClientDataSourceImpl implements DatabaseClientDataSource {
   Future<Resource<int, ErrorException>> addList(
       {required Map<String, dynamic> list}) async {
     try {
-      db.collection('lists').add(list);
-      return Resource.success(data: 1);
+      final existedListTitle = await readList(title: list[ListKeys.title]);
+      if (existedListTitle.data == null) {
+        db.collection('lists').add(list);
+        return Resource.success(data: 1);
+      } else {
+        return Resource.failed(
+            error: ErrorException(
+                message: 'List with the same title already exists!'));
+      }
     } on Exception catch (e) {
       return Resource.failed(error: ErrorException(message: e.asString()));
     }
@@ -56,20 +63,27 @@ class DatabaseClientDataSourceImpl implements DatabaseClientDataSource {
   Future<Resource<int, ErrorException>> updateList(
       {required String title, required Map<String, dynamic> list}) async {
     try {
-      final querySnapshot = await db.collection('lists').get();
-      late String idFound;
-      for (var queryDocumentSnapshot in querySnapshot.docs) {
-        final data = queryDocumentSnapshot.data();
-        final uid = queryDocumentSnapshot.id;
-        if (data[ListKeys.title] == title) {
-          idFound = uid;
-          break;
+      final existedListTitle = await readList(title: list[ListKeys.title]);
+      if (title == list[ListKeys.title] || existedListTitle.data == null) {
+        final querySnapshot = await db.collection('lists').get();
+        late String idFound;
+        for (var queryDocumentSnapshot in querySnapshot.docs) {
+          final data = queryDocumentSnapshot.data();
+          final uid = queryDocumentSnapshot.id;
+          if (data[ListKeys.title] == title) {
+            idFound = uid;
+            break;
+          }
         }
+
+        await db.collection("lists").doc(idFound).update(list);
+
+        return Resource.success(data: 1);
+      } else {
+        return Resource.failed(
+            error: ErrorException(
+                message: 'List with the same title already exists!'));
       }
-
-      await db.collection("lists").doc(idFound).update(list);
-
-      return Resource.success(data: 1);
     } on Exception catch (e) {
       return Resource.failed(error: ErrorException(message: e.asString()));
     }
