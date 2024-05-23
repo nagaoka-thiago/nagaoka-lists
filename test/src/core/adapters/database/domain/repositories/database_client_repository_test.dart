@@ -30,14 +30,14 @@ void main() async {
             {
               'title': 'Item 1',
               'description': 'Description 1',
-              'created_at': '19/05/2024',
-              'changed_at': '19/05/2024',
+              'created_at': '19/05/2024 00:00:00',
+              'changed_at': '19/05/2024 00:00:00',
             },
             {
               'title': 'Item 2',
               'description': 'Description 2',
-              'created_at': '19/05/2024',
-              'changed_at': '19/05/2024',
+              'created_at': '19/05/2024 00:00:00',
+              'changed_at': '19/05/2024 00:00:00',
             },
           ]
         },
@@ -47,14 +47,14 @@ void main() async {
             {
               'title': 'Item 1',
               'description': 'Description 1',
-              'created_at': '19/05/2024',
-              'changed_at': '19/05/2024',
+              'created_at': '19/05/2024 00:00:00',
+              'changed_at': '19/05/2024 00:00:00',
             },
             {
               'title': 'Item 2',
               'description': 'Description 2',
-              'created_at': '19/05/2024',
-              'changed_at': '19/05/2024',
+              'created_at': '19/05/2024 00:00:00',
+              'changed_at': '19/05/2024 00:00:00',
             },
           ]
         },
@@ -89,14 +89,14 @@ void main() async {
           {
             'title': 'Item 1',
             'description': 'Description 1',
-            'created_at': '19/05/2024',
-            'changed_at': '19/05/2024',
+            'created_at': '19/05/2024 00:00:00',
+            'changed_at': '19/05/2024 00:00:00',
           },
           {
             'title': 'Item 2',
             'description': 'Description 2',
-            'created_at': '19/05/2024',
-            'changed_at': '19/05/2024',
+            'created_at': '19/05/2024 00:00:00',
+            'changed_at': '19/05/2024 00:00:00',
           },
         ]
       });
@@ -131,8 +131,8 @@ void main() async {
         ItemEntity(
           title: 'Item 1',
           description: 'Description 1',
-          createdAt: DateTime(2024, 5, 19),
-          changedAt: DateTime(2024, 5, 19),
+          createdAt: DateTime(2024, 5, 19, 0, 0, 0),
+          changedAt: DateTime(2024, 5, 19, 0, 0, 0),
         ),
         ItemEntity(
           title: 'Item 2',
@@ -158,14 +158,14 @@ void main() async {
         ItemEntity(
           title: 'Item 1',
           description: 'Description 1',
-          createdAt: DateTime(2024, 5, 19),
-          changedAt: DateTime(2024, 5, 19),
+          createdAt: DateTime(2024, 5, 19, 0, 0, 0),
+          changedAt: DateTime(2024, 5, 19, 0, 0, 0),
         ),
         ItemEntity(
           title: 'Item 2',
           description: 'Description 2',
-          createdAt: DateTime(2024, 5, 19),
-          changedAt: DateTime(2024, 5, 19),
+          createdAt: DateTime(2024, 5, 19, 0, 0, 0),
+          changedAt: DateTime(2024, 5, 19, 0, 0, 0),
         ),
       ]));
       //Then
@@ -185,14 +185,14 @@ void main() async {
             ItemEntity(
               title: 'Item 1',
               description: 'Description 1',
-              createdAt: DateTime(2024, 5, 19),
-              changedAt: DateTime(2024, 5, 19),
+              createdAt: DateTime(2024, 5, 19, 0, 0, 0),
+              changedAt: DateTime(2024, 5, 19, 0, 0, 0),
             ),
             ItemEntity(
               title: 'Item 2',
               description: 'Description 2',
-              createdAt: DateTime(2024, 5, 19),
-              changedAt: DateTime(2024, 5, 19),
+              createdAt: DateTime(2024, 5, 19, 0, 0, 0),
+              changedAt: DateTime(2024, 5, 19, 0, 0, 0),
             ),
           ]));
       //Then
@@ -214,14 +214,14 @@ void main() async {
             ItemEntity(
               title: 'Item 1',
               description: 'Description 1',
-              createdAt: DateTime(2024, 5, 19),
-              changedAt: DateTime(2024, 5, 19),
+              createdAt: DateTime(2024, 5, 19, 0, 0, 0),
+              changedAt: DateTime(2024, 5, 19, 0, 0, 0),
             ),
             ItemEntity(
               title: 'Item 2',
               description: 'Description 2',
-              createdAt: DateTime(2024, 5, 19),
-              changedAt: DateTime(2024, 5, 19),
+              createdAt: DateTime(2024, 5, 19, 0, 0, 0),
+              changedAt: DateTime(2024, 5, 19, 0, 0, 0),
             ),
           ]));
       //Then
